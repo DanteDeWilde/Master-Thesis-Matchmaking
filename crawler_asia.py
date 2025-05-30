@@ -10,7 +10,7 @@ amount_of_players = 25
 
 def save_state():
     if state:
-        with open("data/state.json", "w") as f:
+        with open(f"{data_path}/state.json", "w") as f:
             json.dump(state, f, indent=4)
 
     print(f"Code ran for {time.time()-start_time} seconds.")
@@ -120,7 +120,7 @@ def get_match_info():
     match_info.append(match['gameMode'])
     match_info.append(match['gameStartTimestamp'])
 
-    with open("data/matches.csv","a") as f:
+    with open(f"{data_path}/matches.csv","a") as f:
         f.write(";".join(map(str, match_info))+"\n")
 
     # save participants info
@@ -173,7 +173,7 @@ def get_match_info():
 
         participants_info.append(participant_info)
 
-    with open("data/player_match_info.csv","a") as f:
+    with open(f"{data_path}/player_match_info.csv","a") as f:
         for participant_info in participants_info:
             f.write(";".join(map(str,participant_info))+"\n")
 
@@ -189,11 +189,11 @@ def get_match_info():
 
         teams_info.append(team_info)
 
-    with open("data/team_match_info.csv","a") as f:
+    with open(f"{data_path}/team_match_info.csv","a") as f:
         for team_info in teams_info:
             f.write(";".join(map(str,team_info))+"\n")
 
-    #match_participants = data["metadata"]["participants"]
+    #match_participants = data_america["metadata"]["participants"]
 
     print(f"Retrieved second to last match for player {puuid}")
 
@@ -237,6 +237,7 @@ def get_next_step():
 state = None
 atexit.register(save_state)
 api_key = None
+data_path = "data_asia"
 
 start_time = time.time()
 
@@ -246,7 +247,7 @@ if __name__ == '__main__':
         api_key = json.load(f)["api_key"]
 
     # read todo state to continue from
-    with open("data/state.json","r") as f:
+    with open(f"{data_path}/state.json","r") as f:
         state = json.load(f)
     current_step = get_next_step()
 
