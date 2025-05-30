@@ -13,6 +13,8 @@ def save_state():
         with open("data/state.json", "w") as f:
             json.dump(state, f, indent=4)
 
+    print(f"Code ran for {time.time()-start_time} seconds.")
+
 def do_request(url):
     succesfull_request = False
     while not succesfull_request:
@@ -22,7 +24,7 @@ def do_request(url):
         elif response.status_code == 429:
             retry_after = response.headers.get("Retry-After", 1)
             print(f"Rate limited, retrying after {retry_after} seconds")
-            time.sleep(retry_after)
+            time.sleep(int(retry_after))
         else:
             raise Exception(f"Request failed with status code {response.status_code}")
     return response.json()
@@ -48,6 +50,12 @@ region_mapping = {
 def get_player_ids():
     save_state()
     global state
+
+    if len(state["todo_regions"]) == 0:
+        # we have done all regions
+        print("All regions done!!!, exiting program...")
+        sys.exit()
+
     tier = state["todo_tiers"][0]
     division = state["todo_divisions"][0]
     region = state["todo_regions"][0]
@@ -77,11 +85,6 @@ def get_player_ids():
     if len(tmp_state["todo_tiers"]) == 0:
         tmp_state["todo_regions"] = tmp_state["todo_regions"][1:]
         tmp_state["todo_tiers"] = tmp_state["tiers"]
-    if len(tmp_state["todo_regions"]) == 0:
-        # we have done all regions
-        print("All regions done!!!, exiting program...")
-        state = tmp_state
-        sys.exit()
     state = tmp_state
 
 
@@ -118,7 +121,7 @@ def get_match_info():
     match_info.append(match['gameStartTimestamp'])
 
     with open("data/matches.csv","a") as f:
-        f.write(";".join(match_info)+"\n")
+        f.write(";".join(map(str, match_info))+"\n")
 
     # save participants info
     participants_info = []
@@ -137,7 +140,7 @@ def get_match_info():
         participant_info.append(participant['challenges']['controlWardsPlaced'])
         participant_info.append(participant['challenges']['stealthWardsPlaced'])
         participant_info.append(participant['challenges']['twoWardsOneSweeperCount'])
-        participant_info.append(participant['challenges']['visionScoreAdvantageLaneOpponent'])
+        participant_info.append(participant['challenges'].get('visionScoreAdvantageLaneOpponent','NONE'))
         participant_info.append(participant['challenges']['visionScorePerMinute'])
         participant_info.append(participant['challenges']['wardTakedowns'])
         participant_info.append(participant['challenges']['wardTakedownsBefore20M'])
@@ -163,16 +166,16 @@ def get_match_info():
         participant_info.append(participant['wardsKilled'])
         participant_info.append(participant['wardsPlaced'])
 
-        participant_info = get_participants_info(participant_puuid)
-        participant_info.append(participant_info[0])
-        participant_info.append(participant_info[1])
+        participant_division_tier = get_participants_info(participant_puuid)
+        participant_info.append(participant_division_tier[0])
+        participant_info.append(participant_division_tier[1])
 
 
         participants_info.append(participant_info)
 
     with open("data/player_match_info.csv","a") as f:
         for participant_info in participants_info:
-            f.write(";".join(participant_info)+"\n")
+            f.write(";".join(map(str,participant_info))+"\n")
 
     # save team info
     teams_info = []
@@ -188,7 +191,7 @@ def get_match_info():
 
     with open("data/team_match_info.csv","a") as f:
         for team_info in teams_info:
-            f.write(";".join(team_info)+"\n")
+            f.write(";".join(map(str,team_info))+"\n")
 
     #match_participants = data["metadata"]["participants"]
 
@@ -214,7 +217,7 @@ def get_participants_info(puuid):
     # get the tier and division of RANKED_SOLO_5x5 if they exist
     for league in data:
         if league['queueType'] == queue_type:
-            return league['division'], league['tier']
+            return league['rank'], league['tier']
     # for some reason we didn't find a rank this season
     return "NONE", "NONE"
 
@@ -234,6 +237,9 @@ def get_next_step():
 state = None
 atexit.register(save_state)
 api_key = None
+
+start_time = time.time()
+
 if __name__ == '__main__':
     # read api key
     with open("key.json","r") as f:
