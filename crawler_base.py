@@ -170,6 +170,8 @@ def get_match_info():
         participant_info.append(participant_division_tier[0])
         participant_info.append(participant_division_tier[1])
 
+        participant_info.append(participant['challenges']['killParticipation'])
+
 
         participants_info.append(participant_info)
 
@@ -186,6 +188,11 @@ def get_match_info():
         team_info.append(team['teamId'])
         team_info.append(match['gameId'])
         team_info.append(team['win'])
+        team_info.append(team['objectives']['atakhan'])
+        team_info.append(team['objectives']['baron'])
+        team_info.append(team['objectives']['dragon'])
+        team_info.append(team['objectives']['horde'])
+        team_info.append(team['objectives']['riftHerald'])
 
         teams_info.append(team_info)
 
