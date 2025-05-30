@@ -1,5 +1,4 @@
 import json
-import os
 import sys
 from enum import Enum
 import atexit
@@ -98,18 +97,25 @@ def get_match_info():
     url = f"https://{mapped_region.lower()}.api.riotgames.com/lol/match/v5/matches/by-puuid/{puuid}/ids?queue={queue_type}&type={match_type}&start={start_count}&count={count_limit}&api_key={api_key}"
     data = do_request(url)
 
+    if len(data)==0:
+        print(f"No match found for player {puuid}")
+        state["players"] = state["players"][1:]
+
     match_id = data[0]
 
     url = f"https://{mapped_region.lower()}.api.riotgames.com/lol/match/v5/matches/{match_id}?api_key={api_key}"
     data = do_request(url)
 
     # save match info
+    match = data['info']
     match_info = []
-    match_info.append(data['info']['gameDuration'])
-    match_info.append(data['info']['gameEndTimestamp'])
-    match_info.append(data['info']['gameId'])
-    match_info.append(data['info']['gameMode'])
-    match_info.append(data['info']['gameStartTimestamp'])
+    match_info.append(match['gameId'])
+    match_info.append(match_id)
+    match_info.append(match['platformId'])
+    match_info.append(match['gameDuration'])
+    match_info.append(match['gameEndTimestamp'])
+    match_info.append(match['gameMode'])
+    match_info.append(match['gameStartTimestamp'])
 
     with open("data/matches.csv","a") as f:
         f.write(";".join(match_info)+"\n")
@@ -117,41 +123,108 @@ def get_match_info():
     # save participants info
     participants_info = []
     for participant in data['info']['participants']:
-        participant_info = []
-        # todo appends
+        participant_puuid = participant['puuid']
 
-        participant_info.append(participant_info)
+        participant_info = []
+
+        participant_info.append(match_id)
+        participant_info.append(match['gameId'])
+        participant_info.append(participant['teamId'])
+        participant_info.append(participant['puuid'])
+        participant_info.append(participant['allInPings'])
+        participant_info.append(participant['assistMePings'])
+        participant_info.append(participant['basicPings'])
+        participant_info.append(participant['challenges']['controlWardsPlaced'])
+        participant_info.append(participant['challenges']['stealthWardsPlaced'])
+        participant_info.append(participant['challenges']['twoWardsOneSweeperCount'])
+        participant_info.append(participant['challenges']['visionScoreAdvantageLaneOpponent'])
+        participant_info.append(participant['challenges']['visionScorePerMinute'])
+        participant_info.append(participant['challenges']['wardTakedowns'])
+        participant_info.append(participant['challenges']['wardTakedownsBefore20M'])
+        participant_info.append(participant['challenges']['wardsGuarded'])
+        participant_info.append(participant['commandPings'])
+        participant_info.append(participant['dangerPings'])
+        participant_info.append(participant['detectorWardsPlaced'])
+        participant_info.append(participant['enemyMissingPings'])
+        participant_info.append(participant['enemyVisionPings'])
+        participant_info.append(participant['getBackPings'])
+        participant_info.append(participant['holdPings'])
+        participant_info.append(participant['needVisionPings'])
+        participant_info.append(participant['onMyWayPings'])
+        participant_info.append(participant['participantId'])
+        participant_info.append(participant['pushPings'])
+        participant_info.append(participant['retreatPings'])
+        participant_info.append(participant['sightWardsBoughtInGame'])
+        participant_info.append(participant['summonerLevel'])
+        participant_info.append(participant['teamPosition'])
+        participant_info.append(participant['visionClearedPings'])
+        participant_info.append(participant['visionScore'])
+        participant_info.append(participant['visionWardsBoughtInGame'])
+        participant_info.append(participant['wardsKilled'])
+        participant_info.append(participant['wardsPlaced'])
+
+        participant_info = get_participants_info(participant_puuid)
+        participant_info.append(participant_info[0])
+        participant_info.append(participant_info[1])
+
+
+        participants_info.append(participant_info)
 
     with open("data/player_match_info.csv","a") as f:
         for participant_info in participants_info:
             f.write(";".join(participant_info)+"\n")
 
-    match_participants = data["metadata"]["participants"]
+    # save team info
+    teams_info = []
+    for team in data['info']['teams']:
+        team_info = []
+
+        team_info.append(match_id)
+        team_info.append(team['teamId'])
+        team_info.append(match['gameId'])
+        team_info.append(team['win'])
+
+        teams_info.append(team_info)
+
+    with open("data/team_match_info.csv","a") as f:
+        for team_info in teams_info:
+            f.write(";".join(team_info)+"\n")
+
+    #match_participants = data["metadata"]["participants"]
 
     print(f"Retrieved second to last match for player {puuid}")
 
     tmp_state = state.copy()
-    tmp_state["match_participants"] = match_participants
+    #tmp_state["match_participants"] = match_participants
 
     # remove first element in players
     tmp_state["players"] = tmp_state["players"][1:]
     state = tmp_state
 
 
-def get_participants_info():
+def get_participants_info(puuid):
+    # find the rank and division of the player
     global state
+    region = state["current_region"]
+    queue_type = "RANKED_SOLO_5x5"
 
+    url = f'https://{region.lower()}.api.riotgames.com/lol/league/v4/entries/by-puuid/{puuid}?api_key={api_key}'
+    data = do_request(url)
+
+    # get the tier and division of RANKED_SOLO_5x5 if they exist
+    for league in data:
+        if league['queueType'] == queue_type:
+            return league['division'], league['tier']
+    # for some reason we didn't find a rank this season
+    return "NONE", "NONE"
 
 
 class State(Enum):
     RETRIEVING_PLAYER_IDS = get_player_ids
     RETRIEVING_MATCH_INFO = get_match_info
-    RETRIEVING_PARTICIPANT_INFO = get_participants_info
 
 def get_next_step():
     # decide what to do based on what is in the state lists
-    if len(state["match_participants"]) != 0:
-        current_step = State.RETRIEVING_PARTICIPANT_INFO
     if len(state["players"]) != 0:
         current_step = State.RETRIEVING_MATCH_INFO
     else:
