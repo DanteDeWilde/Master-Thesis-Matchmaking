@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47acdd37-8c1d-4926-b988-623aeffea426" name="Changes" comment="added some more data values">
+    <list default="true" id="47acdd37-8c1d-4926-b988-623aeffea426" name="Changes" comment="bugfixes of new values">
       <change afterPath="$PROJECT_DIR$/data_america/state_test_backup.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/data_asia/state_test_backup.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/data_europe/state_test_backup.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/data_sea/state_test_backup.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/crawler_base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_america/matches.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data_america/matches.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_america/player_match_info.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data_america/player_match_info.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_america/state.json" beforeDir="false" afterPath="$PROJECT_DIR$/data_america/state.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_america/team_match_info.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data_america/team_match_info.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,7 +183,7 @@
       <updated>1748522275125</updated>
       <workItem from="1748522276402" duration="12050000" />
       <workItem from="1748593243767" duration="1965000" />
-      <workItem from="1748601245776" duration="9673000" />
+      <workItem from="1748601245776" duration="10008000" />
     </task>
     <task id="LOCAL-00001" summary="first possibly working version before testing">
       <option name="closed" value="true" />
@@ -239,7 +233,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748610333060</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="bugfixes of new values">
+      <option name="closed" value="true" />
+      <created>1748611871890</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1748611871890</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -252,7 +254,8 @@
     <MESSAGE value="version ready to run" />
     <MESSAGE value="reduced duplicate code" />
     <MESSAGE value="added some more data values" />
-    <option name="LAST_COMMIT_MESSAGE" value="added some more data values" />
+    <MESSAGE value="bugfixes of new values" />
+    <option name="LAST_COMMIT_MESSAGE" value="bugfixes of new values" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
