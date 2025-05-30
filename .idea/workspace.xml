@@ -4,14 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47acdd37-8c1d-4926-b988-623aeffea426" name="Changes" comment="version ready to run">
-      <change afterPath="$PROJECT_DIR$/crawler_base.py" afterDir="false" />
+    <list default="true" id="47acdd37-8c1d-4926-b988-623aeffea426" name="Changes" comment="added some more data values">
       <change afterPath="$PROJECT_DIR$/data_america/state_test_backup.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/data_asia/state_test_backup.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/data_europe/state_test_backup.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/data_sea/state_test_backup.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawler_europe.py" beforeDir="false" afterPath="$PROJECT_DIR$/crawler_europe.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crawler_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/crawler_base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_america/matches.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data_america/matches.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_america/player_match_info.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data_america/player_match_info.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_america/state.json" beforeDir="false" afterPath="$PROJECT_DIR$/data_america/state.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_america/team_match_info.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data_america/team_match_info.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,13 +44,14 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.crawler.executor": "Run",
     "Python.crawler2.executor": "Run",
+    "Python.crawler_america (1).executor": "Run",
     "Python.crawler_europe.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Jenno Verdonck/Desktop/league_crawler",
+    "last_opened_file_path": "C:/Users/Jenno Verdonck/Desktop/league_crawler/data_america",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -59,14 +63,14 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Jenno Verdonck\Desktop\league_crawler" />
       <recent name="C:\Users\Jenno Verdonck\Desktop\league_crawler\data_america" />
+      <recent name="C:\Users\Jenno Verdonck\Desktop\league_crawler" />
       <recent name="C:\Users\Jenno Verdonck\Desktop\league_crawler\data2" />
       <recent name="C:\Users\Jenno Verdonck\Desktop\league_crawler\data" />
       <recent name="C:\Users\Jenno Verdonck\Desktop\dante\data" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.crawler_europe">
+  <component name="RunManager" selected="Python.crawler_america (1)">
     <configuration name="crawler2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="dante" />
       <option name="ENV_FILES" value="" />
@@ -82,6 +86,29 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/crawler2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="crawler_america (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="dante" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/crawler_america.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -138,6 +165,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.crawler_america (1)" />
         <item itemvalue="Python.crawler_europe" />
         <item itemvalue="Python.crawler2" />
         <item itemvalue="Python.crawler_america" />
@@ -161,7 +189,7 @@
       <updated>1748522275125</updated>
       <workItem from="1748522276402" duration="12050000" />
       <workItem from="1748593243767" duration="1965000" />
-      <workItem from="1748601245776" duration="8159000" />
+      <workItem from="1748601245776" duration="9673000" />
     </task>
     <task id="LOCAL-00001" summary="first possibly working version before testing">
       <option name="closed" value="true" />
@@ -195,7 +223,23 @@
       <option name="project" value="LOCAL" />
       <updated>1748609064458</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="reduced duplicate code">
+      <option name="closed" value="true" />
+      <created>1748610177963</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1748610177963</updated>
+    </task>
+    <task id="LOCAL-00006" summary="added some more data values">
+      <option name="closed" value="true" />
+      <created>1748610333060</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1748610333060</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,31 +250,13 @@
     <MESSAGE value="update" />
     <MESSAGE value="tested and working version" />
     <MESSAGE value="version ready to run" />
-    <option name="LAST_COMMIT_MESSAGE" value="version ready to run" />
+    <MESSAGE value="reduced duplicate code" />
+    <MESSAGE value="added some more data values" />
+    <option name="LAST_COMMIT_MESSAGE" value="added some more data values" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/crawler_america.py</url>
-          <line>88</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/crawler_america.py</url>
-          <line>175</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/crawler_america.py</url>
-          <line>219</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/crawler_america.py</url>
-          <line>126</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/crawler_base.py</url>
           <line>50</line>
@@ -241,8 +267,9 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/league_crawler$crawler2.coverage" NAME="crawler2 Coverage Results" MODIFIED="1748607372818" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/league_crawler$crawler_america__1_.coverage" NAME="crawler_america (1) Coverage Results" MODIFIED="1748611527582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/dante$crawler.coverage" NAME="crawler Coverage Results" MODIFIED="1748593969268" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/league_crawler$crawler.coverage" NAME="crawler Coverage Results" MODIFIED="1748607370262" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/league_crawler$crawler_europe.coverage" NAME="crawler_europe Coverage Results" MODIFIED="1748609721962" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/league_crawler$crawler_europe.coverage" NAME="crawler_europe Coverage Results" MODIFIED="1748610130740" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
