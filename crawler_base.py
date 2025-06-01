@@ -18,15 +18,19 @@ def save_state():
 def do_request(url):
     succesfull_request = False
     while not succesfull_request:
-        response = requests.get(url)
-        if response.status_code == 200:
-            succesfull_request = True
-        elif response.status_code == 429:
-            retry_after = response.headers.get("Retry-After", 1)
-            print(f"Rate limited, retrying after {retry_after} seconds")
-            time.sleep(int(retry_after))
-        else:
-            raise Exception(f"Request failed with status code {response.status_code} and message {response.text}")
+        try:
+            response = requests.get(url)
+            if response.status_code == 200:
+                succesfull_request = True
+            elif response.status_code == 429:
+                retry_after = response.headers.get("Retry-After", 1)
+                print(f"Rate limited, retrying after {retry_after} seconds")
+                time.sleep(int(retry_after))
+            else:
+                raise Exception(f"Request failed with status code {response.status_code} and message {response.text}")
+        except Exception as e:
+            print("An error occurred waiting 5 seconds before retrying:", {type(e).__name__}, e)
+            time.sleep(5)
     return response.json()
 
 region_mapping = {
