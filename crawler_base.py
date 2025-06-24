@@ -176,6 +176,10 @@ def get_match_info():
 
         participant_info.append(participant['challenges'].get('killParticipation',"NONE"))
 
+        participant_info.append(participant['gameEndedInEarlySurrender'])
+        participant_info.append(participant['gameEndedInSurrender'])
+        participant_info.append(participant['goldEarned'])
+
 
         participants_info.append(participant_info)
 
@@ -192,11 +196,12 @@ def get_match_info():
         team_info.append(team['teamId'])
         team_info.append(match['gameId'])
         team_info.append(team['win'])
-        team_info.append(team['objectives'].get('atakhan',{'kills':'NONE'})['kills'])
-        team_info.append(team['objectives']['baron']['kills'])
-        team_info.append(team['objectives']['dragon']['kills'])
-        team_info.append(team['objectives']['horde']['kills'])
-        team_info.append(team['objectives']['riftHerald']['kills'])
+        #team_info.append(team['objectives'].get('atakhan',{'kills':'NONE'})['kills'])
+        #team_info.append(team['objectives']['baron']['kills'])
+        team_info.append(team['objectives']['dragon']['first'])
+        team_info.append(team['objectives']['horde']['first'])
+        team_info.append(team['objectives']['champion']['first'])
+        #team_info.append(team['objectives']['riftHerald']['kills'])
 
         teams_info.append(team_info)
 
@@ -258,7 +263,7 @@ def start_crawler(tmp_data_path):
     with open("key.json", "r") as f:
         api_key = json.load(f)["api_key"]
 
-    # read todo state to continue from
+    # read state to continue from
     with open(f"{data_path}/state.json", "r") as f:
         state = json.load(f)
     current_step = get_next_step()
