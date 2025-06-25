@@ -1,7 +1,6 @@
 import pandas as pd
 
 folders = ['data_america', 'data_asia', 'data_europe', 'data_sea']
-merged_tables = []
 
 if __name__ == '__main__':
     for folder in folders:
@@ -13,6 +12,4 @@ if __name__ == '__main__':
         merged = pd.merge(df_player_match_info, df_matches, how='left', on='match_UUID')
         merged = pd.merge(merged, df_team_match_info, how='left', on=['match_UUID', 'teamId'])
 
-        merged_tables.append(merged)
-
-    pd.concat(merged_tables).to_excel(f'merged.xlsx', index=False)
+        merged.to_excel(f'{folder}/merged.xlsx', index=False)
