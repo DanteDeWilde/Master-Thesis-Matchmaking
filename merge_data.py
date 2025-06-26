@@ -1,6 +1,7 @@
 import pandas as pd
 
 folders = ['data_america', 'data_asia', 'data_europe', 'data_sea']
+merged_tables = []
 
 if __name__ == '__main__':
     for folder in folders:
@@ -9,7 +10,14 @@ if __name__ == '__main__':
         df_player_match_info = pd.read_csv(f'{folder}/player_match_info.csv',sep=';',decimal='.',dtype=str)
         df_team_match_info = pd.read_csv(f'{folder}/team_match_info.csv', sep=';', decimal='.',dtype=str)
 
+        # remove duplicates
+        df_matches.drop_duplicates(subset=['gameId'], inplace=True)
+        df_player_match_info.drop_duplicates(subset=['gameId', 'puuid'], inplace=True)
+        df_team_match_info.drop_duplicates(subset=['match_UUID', 'teamId'], inplace=True)
+
         merged = pd.merge(df_player_match_info, df_matches, how='left', on='match_UUID')
         merged = pd.merge(merged, df_team_match_info, how='left', on=['match_UUID', 'teamId'])
 
-        merged.to_excel(f'{folder}/merged.xlsx', index=False)
+        merged_tables.append(merged)
+
+    pd.concat(merged_tables).to_excel(f'merged.xlsx', index=False)
